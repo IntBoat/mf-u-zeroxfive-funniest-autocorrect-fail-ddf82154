@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-"""Funniest Autocorrect Fail (make.fun).
+"""Funniest Autocorrect Fail — a make.fun one-line entry."""
+from pathlib import Path
 
-Writes the entry -- one line, under 200 characters, a hilarious
-autocorrect fail -- to /output/entry.txt, where the sealed scorer reads it.
-"""
+ENTRY = "Sorry, autocorrect changed 'bring the kids' to 'bring the knives' — dinner at 7, please don't call the police."
 
-import os
-
-TEXT = "I meant to text my wife 'I'll pick up milk on the way home'. Autocorrect sent 'I'll pick up Mick'. Mick is now outside our house with flowers."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
